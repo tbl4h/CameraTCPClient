@@ -3,10 +3,8 @@
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
-#include <iostream>
-#include <stdio.h>
-using namespace cv;
 using namespace boost::asio;
+using namespace cv;
 using ip::tcp;
 using std::cout;
 using std::endl;
@@ -24,10 +22,10 @@ int main()
     boost::system::error_code ec;
     // Step 2. Using IP protocol version independent address
     // representation.
-    asio::ip::address ip_address =
-        asio::ip::address::from_string(raw_ip_address, ec);
+    ip::address ip_address =
+        ip::address::from_string(raw_ip_address, ec);
     // Step 3.
-    asio::ip::tcp::endpoint ep(ip_address, port_num);
+    ip::tcp::endpoint ep(ip_address, port_num);
     //socket creation
     tcp::socket socket(io_service);
     //connection
