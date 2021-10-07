@@ -56,6 +56,7 @@ int main()
         const char *data = boost::asio::buffer_cast<const char *>(receive_buffer.data());
         cout << data << endl;
     }
+    /*
     Mat frame;
     //--- INITIALIZE VIDEOCAPTURE
     VideoCapture cap;
@@ -76,32 +77,32 @@ int main()
     cout << "Start grabbing" << endl
          << "Press any key to terminate" << endl;
     int frameNumber = 0;
-    for (;;)
+
+    // wait for a new frame from camera and store it into 'frame'
+    cap.read(frame);
+    // check if we succeeded
+    if (frame.empty())
     {
-        // wait for a new frame from camera and store it into 'frame'
-        cap.read(frame);
-        // check if we succeeded
-        if (frame.empty())
-        {
-            std::cerr << "ERROR! blank frame grabbed\n";
-            break;
-        }
-        // send live and wait for a key with timeout long enough to show images
-        boost::system::error_code error;
-        os << frame;
-        boost::asio::write(socket, buff, error);
-        if (!error)
-        {
-            std::cout << "Send frame number " << frameNumber << std::endl;
-        }
-        else
-        {
-            cout << "send failed: " << error.message() << endl;
-        }
-        // imshow("Live", frame);
-        if (waitKey(5) >= 0)
-            break;
+        std::cerr << "ERROR! blank frame grabbed\n";
+        break;
     }
+    // send live and wait for a key with timeout long enough to show images
+    boost::system::error_code error;
+    os << frame;
+    boost::asio::write(socket, buff, error);
+    if (!error)
+    {
+        std::cout << "Send frame number " << frameNumber << std::endl;
+    }
+    else
+    {
+        cout << "send failed: " << error.message() << endl;
+    }
+    // imshow("Live", frame);
+    if (waitKey(5) >= 0)
+        break;
+
     // the camera will be deinitialized automatically in VideoCapture destructor
+    */
     return 0;
 }
